@@ -95,12 +95,22 @@ bun i
 
 ```sh
 # Copy .env.example to .env for each app
-cp apps/api/.env.example apps/api/.env
 cp apps/app/.env.example apps/app/.env
+cp apps/api/.dev.vars.example apps/api/.dev.vars
 cp apps/web/.env.example apps/web/.env
 ```
 
-4. Start the development server from either bun or turbo:
+3. Set up Clerk:
+   - Create a Clerk account at [clerk.com](https://clerk.com)
+   - Create a new application
+   - Copy the API keys to your `.env` files
+
+4. Set up Cloudflare (for API):
+   - Create a Cloudflare account
+   - Install wrangler CLI: `bun add -g wrangler`
+   - Authenticate: `wrangler login`
+
+5. Start the development server from either bun or turbo:
 
 ```ts
 bun dev // starts everything in development mode (web, app, api, email)
@@ -108,10 +118,24 @@ bun dev:web // starts the web app in development mode
 bun dev:app // starts the app in development mode
 bun dev:api // starts the api in development mode
 bun dev:email // starts the email app in development mode
+```
 
-// Database
-bun migrate // run migrations
-bun seed // run seed
+## API Development
+
+The API uses Hono.js on Cloudflare Workers:
+
+```sh
+cd apps/api
+
+# Development
+bun dev
+
+# Deploy to Cloudflare
+bun deploy
+
+# Set secrets for production
+wrangler secret put CLERK_PUBLISHABLE_KEY
+wrangler secret put CLERK_SECRET_KEY
 ```
 
 ## How to use
