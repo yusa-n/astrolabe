@@ -2,13 +2,13 @@
 
 
 <p align="center">
-	<h1 align="center"><b>Create v2</b></h1>
+	<h1 align="center"><b>Base SaaS</b></h1>
 <p align="center">
     An open-source starter kit based on <a href="https://midday.ai">Midday</a>.
     <br />
     <br />
-    <a href="https://curino.co"><strong>Website</strong></a> · 
-    <a href="https://github.com/yusa-n/v2/issues"><strong>Issues</strong></a> · 
+    <a href="https://curino.co"><strong>Website</strong></a> ·
+    <a href="https://github.com/yusa-n/base-saas/issues"><strong>Issues</strong></a> ·
     <a href="#whats-included"><strong>What's included</strong></a> ·
     <a href="#prerequisites"><strong>Prerequisites</strong></a> ·
     <a href="#getting-started"><strong>Getting Started</strong></a> ·
@@ -80,7 +80,8 @@ OpenPanel<br>
 Clone this repo locally with the following command:
 
 ```bash
-bunx degit yusa-n/v2 v2
+git clone https://github.com/yusa-n/base-saas.git
+cd base-saas
 ```
 
 1. Install dependencies using bun:
@@ -146,13 +147,4 @@ With this, you have a great starting point for your own project.
 Vercel deployment will guide you through creating a Clerk account and project.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmidday-ai%2Fv1&env=RESEND_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_SENTRY_DSN,SENTRY_ORG,SENTRY_PROJECT,NEXT_PUBLIC_OPENPANEL_CLIENT_ID,OPENPANEL_SECRET_KEY&project-name=create-v2&repository-name=create-v2&redirect-url=https%3A%2F%2Fv1.run&demo-title=Create%20v1&demo-description=An%20open-source%20starter%20kit%20based%20on%20Midday.&demo-url=https%3A%2F%2Fv1.run&demo-image=https%3A%2F%2Fv1.run%2Fopengraph-image.png&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
-
-## Recognition
-
-<a href="https://news.ycombinator.com/item?id=41408929">
-  <img
-    style="width: 250px; height: 54px;" width="250" height="54"
-    alt="Featured on Hacker News"
-    src="https://hackernews-badge.vercel.app/api?id=41408929"
-  />
 </a>
