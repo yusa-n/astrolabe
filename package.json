@@ -9,6 +9,8 @@
     "dev": "turbo dev --parallel",
     "dev:web": "turbo dev --filter=@base-saas/web",
     "dev:app": "turbo dev --filter=@base-saas/app",
+    "dev:api": "turbo dev --filter=@base-saas/api",
+    "dev:email": "turbo dev --filter=@base-saas/email",
     "start:web": "turbo start --filter=@base-saas/web",
     "start:app": "turbo start --filter=@base-saas/app",
     "test": "turbo test --parallel",

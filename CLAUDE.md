@@ -107,7 +107,6 @@ Each app has its own `.env` file. Key services:
 - **Resend**: Email delivery
 - **Sentry**: Error monitoring
 - **OpenPanel**: Analytics
-- **Dub**: Link shortening
 
 ### TypeScript Configuration
 - Shared configs in `tooling/typescript/`
