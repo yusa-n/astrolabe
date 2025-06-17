@@ -1,0 +1,13 @@
+name = "base-saas-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+# Clerk environment variables should be set in Cloudflare dashboard or via wrangler secret
+# wrangler secret put CLERK_PUBLISHABLE_KEY
+# wrangler secret put CLERK_SECRET_KEY
