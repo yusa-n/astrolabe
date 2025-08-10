@@ -1,12 +1,6 @@
-![hero](image.png)
-
-
 <p align="center">
 	<h1 align="center"><b>Base SaaS</b></h1>
-<p align="center">
-    An open-source starter kit based on <a href="https://midday.ai">Midday</a>.
-    <br />
-    <br />
+	<p align="center">
     <a href="https://curino.co"><strong>Website</strong></a> ·
     <a href="https://github.com/yusa-n/base-saas/issues"><strong>Issues</strong></a> ·
     <a href="#whats-included"><strong>What's included</strong></a> ·

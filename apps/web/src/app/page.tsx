@@ -17,19 +17,6 @@ export default function Page() {
         <AnimatedText text="Production ready code" />
       </h1>
 
-      <p className="relative z-10 text-center max-w-[80%] mt-0 md:mt-4">
-        An open-source starter kit based on{" "}
-        <a href="https://midday.ai?utm_source=v2" className="underline">
-          Midday
-        </a>
-        .
-      </p>
-
-      {/* In process */}
-      {/* <span className="relative z-10 text-center text-[#878787] text-xs mt-2">
-        Security verified by Kenshū.
-      </span> */}
-
       <div className="mt-10 mb-8">
         <CopyText value="bunx degit yusa-n/v2 v2" />
       </div>
