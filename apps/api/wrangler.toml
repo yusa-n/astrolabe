@@ -8,6 +8,12 @@ vars = { ENVIRONMENT = "production" }
 [env.development]
 vars = { ENVIRONMENT = "development" }
 
+# D1 Database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "base-saas-db"
+database_id = "YOUR_DATABASE_ID" # Replace with actual ID after creating the database
+
 # Clerk environment variables should be set in Cloudflare dashboard or via wrangler secret
 # wrangler secret put CLERK_PUBLISHABLE_KEY
 # wrangler secret put CLERK_SECRET_KEY

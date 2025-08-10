@@ -6,6 +6,7 @@ import { clerkMiddleware } from "@hono/clerk-auth";
 type Env = {
   CLERK_PUBLISHABLE_KEY: string;
   CLERK_SECRET_KEY: string;
+  DB: D1Database;
 };
 
 const app = new Hono<{ Bindings: Env }>();
