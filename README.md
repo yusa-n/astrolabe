@@ -10,64 +10,79 @@
   </p>
 </p>
 
-Everything you need to build a production ready SaaS, it's a opinionated stack based on learnings from building Midday using the latest Next.js framework, it's a monorepo with a focus on code reuse and best practices that will grow with your business.
+Everything you need to build a production-ready SaaS. An opinionated stack based on learnings from building Midday using the latest Next.js framework. It's a monorepo with a focus on code reuse, edge computing, and best practices that will scale with your business.
 
 ## What's included
 
+### Core Technologies
 [Next.js](https://nextjs.org/) - Framework<br>
 [Turborepo](https://turbo.build) - Build system<br>
-[Biome](https://biomejs.dev) - Linter, formatter<br>
+[Bun](https://bun.sh/) - Package manager & runtime<br>
+[TypeScript](https://www.typescriptlang.org/) - Type safety<br>
 [TailwindCSS](https://tailwindcss.com/) - Styling<br>
 [Shadcn](https://ui.shadcn.com/) - UI components<br>
-[TypeScript](https://www.typescriptlang.org/) - Type safety<br>
-[Clerk](https://clerk.com/) - Authentication<br>
-[Hono.js](https://hono.dev/) - API framework<br>
+
+### Backend & Infrastructure
 [Cloudflare Workers](https://workers.cloudflare.com/) - Edge computing platform<br>
-[Upstash](https://upstash.com/) - Cache and rate limiting<br>
+[Cloudflare D1](https://developers.cloudflare.com/d1/) - Edge-native SQLite database<br>
+[Drizzle ORM](https://orm.drizzle.team/) - TypeScript ORM<br>
+[Hono.js](https://hono.dev/) - Lightweight edge API framework<br>
+[Clerk](https://clerk.com/) - Authentication & user management<br>
+[Upstash Redis](https://upstash.com/) - Serverless Redis for rate limiting<br>
+
+### Frontend & Developer Experience
+[react-safe-action](https://next-safe-action.dev) - Type-safe Server Actions<br>
+[nuqs](https://nuqs.47ng.com/) - Type-safe URL state management<br>
+[next-themes](https://next-themes-example.vercel.app/) - Theme manager<br>
+[next-international](https://next-international.vercel.app/) - Internationalization<br>
+[Zod](https://zod.dev/) - Schema validation<br>
+
+### Development Tools
+[Biome](https://biomejs.dev) - Fast linter & formatter (replaces ESLint/Prettier)<br>
+[Sherif](https://github.com/QuiiBz/sherif) - Monorepo linting<br>
+
+### Services & Integrations
 [React Email](https://react.email/) - Email templates<br>
 [Resend](https://resend.com/) - Email delivery<br>
-[i18n](https://next-international.vercel.app/) - Internationalization<br>
-[Sentry](https://sentry.io/) - Error handling/monitoring<br>
-[OpenPanel](https://openpanel.dev/) - Analytics<br>
+[Sentry](https://sentry.io/) - Error monitoring<br>
+[OpenPanel](https://openpanel.dev/) - Privacy-friendly analytics<br>
 [Polar](https://polar.sh) - Billing (coming soon)<br>
-[react-safe-action](https://next-safe-action.dev) - Validated Server Actions<br>
-[nuqs](https://nuqs.47ng.com/) - Type-safe search params state manager<br>
-[next-themes](https://next-themes-example.vercel.app/) - Theme manager<br>
 
 ## Directory Structure
 
 ```
 .
-├── apps                         # App workspace
-│    ├── api                     # Hono.js API on Cloudflare Workers
-│    ├── app                     # App - your product
-│    ├── web                     # Marketing site
+├── apps                         # Applications
+│    ├── api                     # Edge API (Hono.js + Cloudflare Workers + D1)
+│    ├── app                     # Main SaaS app (Next.js 14 App Router)
+│    ├── web                     # Marketing website (Next.js 14)
 │    └── ...
-├── packages                     # Shared packages between apps
-│    ├── analytics               # OpenPanel analytics
-│    ├── email                   # React email library
-│    ├── kv                      # Upstash rate-limited key-value storage
-│    ├── logger                  # Logger library
-│    └── ui                      # Shared UI components (Shadcn)
-├── tooling                      # are the shared configuration that are used by the apps and packages
-│    └── typescript              # Shared TypeScript configuration
-├── .cursorrules                 # Cursor rules specific to this project
-├── biome.json                   # Biome configuration
-├── turbo.json                   # Turbo configuration
+├── packages                     # Shared packages
+│    ├── analytics               # OpenPanel analytics wrapper
+│    ├── database               # Database schema & migrations (Drizzle)
+│    ├── email                   # React Email templates
+│    ├── kv                      # Upstash Redis rate limiting
+│    ├── logger                  # Shared logging utilities
+│    └── ui                      # Shared UI components (Shadcn UI)
+├── tooling                      # Shared configurations
+│    └── typescript              # TypeScript configs
+├── .cursorrules                 # Cursor IDE rules
+├── biome.json                   # Biome linter/formatter config
+├── turbo.json                   # Turborepo config
+├── bun.lockb                    # Bun lockfile
 ├── LICENSE
 └── README.md
 ```
 
 ## Prerequisites
 
-Bun<br>
-Docker<br>
-Upstash<br>
-Resend<br>
-Clerk<br>
-Cloudflare account<br>
-Sentry<br>
-OpenPanel<br>
+- [Bun](https://bun.sh/) (v1.1.26 or later)
+- [Cloudflare account](https://cloudflare.com) (for Workers & D1)
+- [Clerk account](https://clerk.com) (for authentication)
+- [Upstash account](https://upstash.com) (for Redis rate limiting)
+- [Resend account](https://resend.com) (for email delivery)
+- [Sentry account](https://sentry.io) (optional, for error monitoring)
+- [OpenPanel account](https://openpanel.dev) (optional, for analytics)
 
 ## Getting Started
 
@@ -93,52 +108,143 @@ cp apps/api/.dev.vars.example apps/api/.dev.vars
 cp apps/web/.env.example apps/web/.env
 ```
 
-3. Set up Clerk:
-   - Create a Clerk account at [clerk.com](https://clerk.com)
+3. Set up services:
+
+   **Clerk (Authentication):**
+   - Create account at [clerk.com](https://clerk.com)
    - Create a new application
-   - Copy the API keys to your `.env` files
+   - Copy API keys to `.env` files
 
-4. Set up Cloudflare (for API):
-   - Create a Cloudflare account
-   - Install wrangler CLI: `bun add -g wrangler`
+   **Cloudflare (API & Database):**
+   - Create account at [cloudflare.com](https://cloudflare.com)
+   - Install Wrangler CLI: `bun add -g wrangler`
    - Authenticate: `wrangler login`
+   - Create D1 database: `wrangler d1 create base-saas-db`
+   - Update `wrangler.toml` with your database ID
 
-5. Start the development server from either bun or turbo:
+   **Upstash (Rate Limiting):**
+   - Create account at [upstash.com](https://upstash.com)
+   - Create a Redis database
+   - Copy credentials to `.env` files
 
-```ts
-bun dev // starts everything in development mode (web, app, api, email)
-bun dev:web // starts the web app in development mode
-bun dev:app // starts the app in development mode
-bun dev:api // starts the api in development mode
-bun dev:email // starts the email app in development mode
+4. Set up the database:
+
+```sh
+cd apps/api
+bun run db:generate  # Generate migrations
+bun run db:migrate   # Run migrations locally
+```
+
+5. Start the development server:
+
+```sh
+bun dev         # Start everything in development mode
+bun dev:web     # Start marketing site (port 3001)
+bun dev:app     # Start main app (port 3000)
+bun dev:api     # Start API (port 8787)
+bun dev:email   # Start email preview (port 3002)
 ```
 
 ## API Development
 
-The API uses Hono.js on Cloudflare Workers:
+The API runs on Cloudflare Workers with Hono.js and uses D1 (SQLite) as the database:
 
 ```sh
 cd apps/api
 
 # Development
-bun dev
+bun dev              # Start local development server
 
-# Deploy to Cloudflare
-bun deploy
+# Database management
+bun db:generate      # Generate Drizzle migrations
+bun db:migrate       # Apply migrations to local D1
+bun db:studio        # Open Drizzle Studio (database GUI)
 
-# Set secrets for production
+# Deployment
+bun deploy           # Deploy to Cloudflare Workers
+
+# Production database
+wrangler d1 migrations apply base-saas-db --remote
+
+# Set production secrets
 wrangler secret put CLERK_PUBLISHABLE_KEY
 wrangler secret put CLERK_SECRET_KEY
 ```
 
-## How to use
-This boilerplate is inspired by our work on Midday, and it's designed to serve as a reference for real-world apps. Feel free to dive into the code and see how we've tackled various features. Whether you're looking to understand authentication flows, database interactions, or UI components, you'll find practical, battle-tested implementations throughout the codebase. It's not just a starting point; it's a learning resource that can help you build your own applications.
+### API Architecture
 
-With this, you have a great starting point for your own project.
+- **Edge Runtime**: Runs globally on Cloudflare's edge network
+- **Database**: D1 provides edge-native SQLite with automatic replication
+- **ORM**: Drizzle ORM for type-safe database queries
+- **Authentication**: Clerk middleware validates JWTs on every request
+- **Rate Limiting**: Upstash Redis with fixed window strategy
 
-## Deploy to Vercel
+## Key Features
 
-Vercel deployment will guide you through creating a Clerk account and project.
+### Edge-First Architecture
+- API runs on Cloudflare Workers for minimal latency
+- D1 database provides globally distributed SQLite
+- Optimized for performance with Hono.js
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmidday-ai%2Fv1&env=RESEND_API_KEY,UPSTASH_REDIS_REST_URL,UPSTASH_REDIS_REST_TOKEN,SENTRY_AUTH_TOKEN,NEXT_PUBLIC_SENTRY_DSN,SENTRY_ORG,SENTRY_PROJECT,NEXT_PUBLIC_OPENPANEL_CLIENT_ID,OPENPANEL_SECRET_KEY&project-name=create-v2&repository-name=create-v2&redirect-url=https%3A%2F%2Fv1.run&demo-title=Create%20v1&demo-description=An%20open-source%20starter%20kit%20based%20on%20Midday.&demo-url=https%3A%2F%2Fv1.run&demo-image=https%3A%2F%2Fv1.run%2Fopengraph-image.png&integration-ids=oac_VqOgBHqhEoFTPzGkPd7L0iH6)
-</a>
+### Modern Development Experience
+- Type-safe from database to frontend with Drizzle + Zod
+- Server Actions with automatic validation
+- URL state management with nuqs
+- Biome for fast linting and formatting
+
+### Production Ready
+- Authentication with Clerk (SSO, MFA, etc.)
+- Rate limiting with Upstash Redis
+- Error monitoring with Sentry
+- Internationalization support
+- Email templates with React Email
+
+## Common Commands
+
+```sh
+# Development
+bun dev          # Start all apps
+bun dev:app      # Start main app only
+bun dev:api      # Start API only
+bun dev:web      # Start marketing site only
+
+# Code quality
+bun lint         # Lint with Biome
+bun format       # Format with Biome
+bun typecheck    # TypeScript checking
+
+# Build
+bun build        # Build all apps
+bun clean        # Clean build artifacts
+```
+
+## Deployment
+
+### Deploy Next.js Apps to Vercel
+
+The web and app can be deployed to Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyusa-n%2Fbase-saas)
+
+### Deploy API to Cloudflare
+
+```sh
+cd apps/api
+bun deploy
+
+# Don't forget to set production secrets
+wrangler secret put CLERK_PUBLISHABLE_KEY
+wrangler secret put CLERK_SECRET_KEY
+
+# Run production migrations
+wrangler d1 migrations apply base-saas-db --remote
+```
+
+## Learn More
+
+- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+- [D1 Database Documentation](https://developers.cloudflare.com/d1/)
+- [Drizzle ORM Documentation](https://orm.drizzle.team/)
+- [Hono.js Documentation](https://hono.dev/)
+- [Clerk Documentation](https://clerk.com/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
