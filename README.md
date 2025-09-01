@@ -1,5 +1,5 @@
 <p align="center">
-	<h1 align="center"><b>astrolabe</b></h1>
+	<h1 align="center"><b>Astrolabe</b></h1>
 	<p align="center">
     <a href="https://curino.co"><strong>Website</strong></a> ·
     <a href="https://github.com/yusa-n/base-saas/issues"><strong>Issues</strong></a> ·
