@@ -1,8 +1,9 @@
 <p align="center">
+	<img src="image.jpg" alt="Astrolabe" />
 	<h1 align="center"><b>Astrolabe</b></h1>
 	<p align="center">
     <a href="https://curino.co"><strong>Website</strong></a> ·
-    <a href="https://github.com/yusa-n/base-saas/issues"><strong>Issues</strong></a> ·
+    <a href="https://github.com/yusa-n/astrolabe/issues"><strong>Issues</strong></a> ·
     <a href="#whats-included"><strong>What's included</strong></a> ·
     <a href="#prerequisites"><strong>Prerequisites</strong></a> ·
     <a href="#getting-started"><strong>Getting Started</strong></a> ·
