@@ -13,6 +13,8 @@
 
 Everything you need to build a production-ready SaaS. An opinionated stack based on learnings from building Midday using the latest Next.js framework. It's a monorepo with a focus on code reuse, edge computing, and best practices that will scale with your business.
 
+Inspired by Midday and the Next.js SaaS Starter template. Thanks to these projects and communities for ideas and best practices.
+
 ## What's included
 
 ### Core Technologies
