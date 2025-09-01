@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@astrolabe/ui/button";
+import { Icons } from "@astrolabe/ui/icons";
 import { useClerk } from "@clerk/nextjs";
-import { Button } from "@base-saas/ui/button";
-import { Icons } from "@base-saas/ui/icons";
 import { useRouter } from "next/navigation";
 
 export function SignOut() {

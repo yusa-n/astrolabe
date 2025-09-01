@@ -1,4 +1,4 @@
-import { logger } from "@base-saas/logger";
+import { logger } from "@astrolabe/logger";
 import {
   OpenPanelComponent,
   type PostEventPayload,

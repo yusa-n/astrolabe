@@ -1,13 +1,13 @@
 {
-  "name": "@base-saas/api",
+  "name": "@astrolabe/api",
   "private": true,
   "scripts": {
     "dev": "wrangler dev src/index.ts",
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "wrangler d1 migrations apply base-saas-db --local",
-    "db:migrate:remote": "wrangler d1 migrations apply base-saas-db --remote",
+    "db:migrate": "wrangler d1 migrations apply astrolabe-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply astrolabe-db --remote",
     "db:reset": "rm -f .wrangler/state/v3/d1/miniflare-D1DatabaseObject/*.sqlite* && bun run db:migrate",
     "test": "bun test",
     "stripe:seed": "bun run scripts/stripe-seed.ts"

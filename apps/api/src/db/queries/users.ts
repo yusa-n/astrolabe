@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import type { Db } from "../index";
-import { users, type NewUser } from "../schema";
+import { type NewUser, users } from "../schema";
 
 export async function getUserByClerkId(db: Db, clerkId: string) {
   const result = await db

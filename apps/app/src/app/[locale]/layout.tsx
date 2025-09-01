@@ -1,7 +1,7 @@
-import "@base-saas/ui/globals.css";
+import "@astrolabe/ui/globals.css";
 import { Footer } from "@/components/footer";
+import { cn } from "@astrolabe/ui/cn";
 import { ClerkProvider } from "@clerk/nextjs";
-import { cn } from "@base-saas/ui/cn";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";

@@ -1,8 +1,8 @@
-import "@base-saas/ui/globals.css";
+import "@astrolabe/ui/globals.css";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
-import { Provider as AnalyticsProvider } from "@base-saas/analytics/client";
-import { cn } from "@base-saas/ui/cn";
+import { Provider as AnalyticsProvider } from "@astrolabe/analytics/client";
+import { cn } from "@astrolabe/ui/cn";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";

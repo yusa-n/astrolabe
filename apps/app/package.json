@@ -1,5 +1,5 @@
 {
-  "name": "@base-saas/app",
+  "name": "@astrolabe/app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -12,9 +12,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@base-saas/analytics": "workspace:*",
-    "@base-saas/kv": "workspace:*",
-    "@base-saas/ui": "workspace:*",
+    "@astrolabe/analytics": "workspace:*",
+    "@astrolabe/kv": "workspace:*",
+    "@astrolabe/ui": "workspace:*",
     "@clerk/nextjs": "^5.1.5",
     "geist": "^1.3.1",
     "next": "14.2.7",

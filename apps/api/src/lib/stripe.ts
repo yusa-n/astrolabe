@@ -17,7 +17,12 @@ type StripeSubscription = {
   id: string;
   status: string;
   customer: string;
-  items: { data: Array<{ price: StripePrice; plan?: { product?: string; name?: string } }> };
+  items: {
+    data: Array<{
+      price: StripePrice;
+      plan?: { product?: string; name?: string };
+    }>;
+  };
 };
 
 export async function stripeGet<T>(
@@ -29,17 +34,17 @@ export async function stripeGet<T>(
   if (params) {
     for (const [k, v] of Object.entries(params)) {
       if (Array.isArray(v)) {
-        v.forEach((val) => url.searchParams.append(k, val));
+        for (const val of v) url.searchParams.append(k, val);
       } else if (v != null) {
         url.searchParams.set(k, v);
       }
     }
   }
   const res = await fetch(url.toString(), {
-    method: 'GET',
+    method: "GET",
     headers: {
       Authorization: `Bearer ${secretKey}`,
-      'Stripe-Version': '2025-04-30.basil',
+      "Stripe-Version": "2025-04-30.basil",
     },
   });
   if (!res.ok) {
@@ -53,18 +58,26 @@ export async function retrieveCheckoutSession(
   secretKey: string,
   sessionId: string,
 ): Promise<StripeCheckoutSession> {
-  return stripeGet<StripeCheckoutSession>(secretKey, `checkout/sessions/${sessionId}`, {
-    'expand[]': ['customer', 'subscription'],
-  });
+  return stripeGet<StripeCheckoutSession>(
+    secretKey,
+    `checkout/sessions/${sessionId}`,
+    {
+      "expand[]": ["customer", "subscription"],
+    },
+  );
 }
 
 export async function retrieveSubscription(
   secretKey: string,
   subscriptionId: string,
 ): Promise<StripeSubscription> {
-  return stripeGet<StripeSubscription>(secretKey, `subscriptions/${subscriptionId}`, {
-    'expand[]': ['items.data.price.product'],
-  });
+  return stripeGet<StripeSubscription>(
+    secretKey,
+    `subscriptions/${subscriptionId}`,
+    {
+      "expand[]": ["items.data.price.product"],
+    },
+  );
 }
 
 // Webhook signature verification based on Stripe docs
@@ -91,35 +104,38 @@ export async function verifyStripeSignature(
 
 function parseStripeSignature(header: string | null) {
   if (!header) return null;
-  const parts = header.split(',').map((p) => p.trim());
+  const parts = header.split(",").map((p) => p.trim());
   let t: string | null = null;
   const v1: string[] = [];
   for (const p of parts) {
-    const [k, v] = p.split('=');
-    if (k === 't') t = v;
-    if (k === 'v1' && v) v1.push(v);
+    const [k, v] = p.split("=");
+    if (k === "t") t = v;
+    if (k === "v1" && v) v1.push(v);
   }
   if (!t || v1.length === 0) return null;
   return { t, v1 };
 }
 
-async function computeHmacSha256Hex(secret: string, message: string): Promise<string> {
+async function computeHmacSha256Hex(
+  secret: string,
+  message: string,
+): Promise<string> {
   const enc = new TextEncoder();
   const key = await crypto.subtle.importKey(
-    'raw',
+    "raw",
     enc.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
+    { name: "HMAC", hash: "SHA-256" },
     false,
-    ['sign'],
+    ["sign"],
   );
-  const sig = await crypto.subtle.sign('HMAC', key, enc.encode(message));
+  const sig = await crypto.subtle.sign("HMAC", key, enc.encode(message));
   return toHex(sig);
 }
 
 function toHex(buf: ArrayBuffer): string {
   const b = new Uint8Array(buf);
-  let s = '';
-  for (let i = 0; i < b.length; i++) s += b[i].toString(16).padStart(2, '0');
+  let s = "";
+  for (let i = 0; i < b.length; i++) s += b[i].toString(16).padStart(2, "0");
   return s;
 }
 
@@ -140,15 +156,18 @@ export async function stripePostForm<T>(
 ): Promise<T> {
   const form = new URLSearchParams();
   for (const [k, v] of Object.entries(body)) {
-    if (Array.isArray(v)) v.forEach((val) => form.append(k, val));
-    else if (v != null) form.append(k, v);
+    if (Array.isArray(v)) {
+      for (const val of v) form.append(k, val);
+    } else if (v != null) {
+      form.append(k, v);
+    }
   }
   const res = await fetch(`https://api.stripe.com/v1/${path}`, {
-    method: 'POST',
+    method: "POST",
     headers: {
       Authorization: `Bearer ${secretKey}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Stripe-Version': '2025-04-30.basil',
+      "Content-Type": "application/x-www-form-urlencoded",
+      "Stripe-Version": "2025-04-30.basil",
     },
     body: form.toString(),
   });

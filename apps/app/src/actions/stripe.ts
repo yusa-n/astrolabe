@@ -45,4 +45,3 @@ export async function createCustomerPortalSession() {
   if (!data.url) throw new Error("No portal URL returned");
   redirect(data.url);
 }
-

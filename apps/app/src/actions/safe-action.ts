@@ -1,8 +1,8 @@
-import * as Sentry from "@sentry/nextjs";
-import { setupAnalytics } from "@base-saas/analytics/server";
-import { ratelimit } from "@base-saas/kv/ratelimit";
-import { logger } from "@base-saas/logger";
+import { setupAnalytics } from "@astrolabe/analytics/server";
+import { ratelimit } from "@astrolabe/kv/ratelimit";
+import { logger } from "@astrolabe/logger";
 import { auth } from "@clerk/nextjs/server";
+import * as Sentry from "@sentry/nextjs";
 import {
   DEFAULT_SERVER_ERROR_MESSAGE,
   createSafeActionClient,

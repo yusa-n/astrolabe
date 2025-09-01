@@ -7,7 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@base-saas/ui/dialog";
+} from "@astrolabe/ui/dialog";
 import Image from "next/image";
 import Link from "next/link";
 import { SubscribeForm } from "./subscribe-form";

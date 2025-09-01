@@ -55,9 +55,7 @@
       "indexes": {
         "users_clerk_id_unique": {
           "name": "users_clerk_id_unique",
-          "columns": [
-            "clerk_id"
-          ],
+          "columns": ["clerk_id"],
           "isUnique": true
         }
       },

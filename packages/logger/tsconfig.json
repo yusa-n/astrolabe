@@ -1,5 +1,5 @@
 {
-  "extends": "@base-saas/typescript/base.json",
+  "extends": "@astrolabe/typescript/base.json",
   "compilerOptions": {
     "baseUrl": "."
   },

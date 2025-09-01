@@ -1,6 +1,6 @@
+import { Button } from "@astrolabe/ui/button";
 import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@base-saas/ui/button";
 
 export const metadata = {
   title: "Login",

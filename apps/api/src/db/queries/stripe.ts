@@ -1,8 +1,11 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "../index";
-import { teams, type Team } from "../schema";
+import { type Team, teams } from "../schema";
 
-export async function getTeamByStripeCustomerId(d1: D1Database, customerId: string) {
+export async function getTeamByStripeCustomerId(
+  d1: D1Database,
+  customerId: string,
+) {
   const db = getDb(d1);
   const result = await db
     .select()
@@ -31,4 +34,3 @@ export async function updateTeamSubscription(
     })
     .where(eq(teams.id, teamId));
 }
-

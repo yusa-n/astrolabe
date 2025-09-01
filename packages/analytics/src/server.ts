@@ -1,4 +1,4 @@
-import { logger } from "@base-saas/logger";
+import { logger } from "@astrolabe/logger";
 import { OpenPanel, type PostEventPayload } from "@openpanel/nextjs";
 import { waitUntil } from "@vercel/functions";
 

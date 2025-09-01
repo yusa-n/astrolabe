@@ -1,4 +1,4 @@
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { stripeGet, stripePostForm } from "../src/lib/stripe";
 
 describe("stripe http helpers", () => {
@@ -10,9 +10,9 @@ describe("stripe http helpers", () => {
       capturedUrl = String(input);
       capturedHeaders = Object.fromEntries(new Headers(init?.headers));
       return new Response(JSON.stringify({ ok: true }), { status: 200 });
-    }) as any;
+    }) as unknown as typeof fetch;
 
-    const res = await stripeGet<any>("sk_test_123", "prices", {
+    const res = await stripeGet<{ ok: boolean }>("sk_test_123", "prices", {
       active: "true",
       "expand[]": ["data.product"],
     });
@@ -20,7 +20,7 @@ describe("stripe http helpers", () => {
     expect(capturedUrl).toContain("https://api.stripe.com/v1/prices");
     expect(capturedUrl).toContain("active=true");
     expect(capturedUrl).toContain("expand%5B%5D=data.product");
-    expect(capturedHeaders["authorization"]).toBe("Bearer sk_test_123");
+    expect(capturedHeaders.authorization).toBe("Bearer sk_test_123");
     expect(capturedHeaders["stripe-version"]).toBeDefined();
 
     globalThis.fetch = original;
@@ -33,18 +33,27 @@ describe("stripe http helpers", () => {
     globalThis.fetch = (async (_input: RequestInfo, init?: RequestInit) => {
       capturedBody = String(init?.body || "");
       capturedHeaders = Object.fromEntries(new Headers(init?.headers));
-      return new Response(JSON.stringify({ id: "cs_123", url: "https://checkout.stripe.com" }), { status: 200 });
-    }) as any;
+      return new Response(
+        JSON.stringify({ id: "cs_123", url: "https://checkout.stripe.com" }),
+        { status: 200 },
+      );
+    }) as unknown as typeof fetch;
 
-    const data = await stripePostForm<any>("sk_test_123", "checkout/sessions", {
-      "line_items[0][price]": "price_123",
-      "line_items[0][quantity]": "1",
-      mode: "subscription",
-      success_url: "http://localhost/success",
-      cancel_url: "http://localhost/cancel",
-    });
+    const data = await stripePostForm<{ id: string; url: string }>(
+      "sk_test_123",
+      "checkout/sessions",
+      {
+        "line_items[0][price]": "price_123",
+        "line_items[0][quantity]": "1",
+        mode: "subscription",
+        success_url: "http://localhost/success",
+        cancel_url: "http://localhost/cancel",
+      },
+    );
     expect(data.id).toBe("cs_123");
-    expect(capturedHeaders["content-type"]).toBe("application/x-www-form-urlencoded");
+    expect(capturedHeaders["content-type"]).toBe(
+      "application/x-www-form-urlencoded",
+    );
     expect(capturedBody).toContain("line_items%5B0%5D%5Bprice%5D=price_123");
     expect(capturedBody).toContain("mode=subscription");
 

@@ -1,5 +1,5 @@
 {
-  "extends": "@base-saas/typescript/nextjs.json",
+  "extends": "@astrolabe/typescript/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

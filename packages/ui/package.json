@@ -1,5 +1,5 @@
 {
-  "name": "@base-saas/ui",
+  "name": "@astrolabe/ui",
   "version": "0.1.0",
   "private": true,
   "sideEffects": false,

@@ -1,4 +1,4 @@
-import baseConfig from "@base-saas/ui/tailwind.config";
+import baseConfig from "@astrolabe/ui/tailwind.config";
 import type { Config } from "tailwindcss";
 
 export default {

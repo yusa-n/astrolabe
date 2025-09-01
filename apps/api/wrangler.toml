@@ -1,4 +1,4 @@
-name = "base-saas-api"
+name = "astrolabe-api"
 main = "src/index.ts"
 compatibility_date = "2024-01-01"
 
@@ -11,7 +11,7 @@ vars = { ENVIRONMENT = "development" }
 # D1 Database binding
 [[d1_databases]]
 binding = "DB"
-database_name = "base-saas-db"
+database_name = "astrolabe-db"
 database_id = "YOUR_DATABASE_ID" # Replace with actual ID after creating the database
 
 # Clerk environment variables should be set in Cloudflare dashboard or via wrangler secret

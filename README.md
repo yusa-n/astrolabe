@@ -92,8 +92,8 @@ Inspired by Midday and the Next.js SaaS Starter template. Thanks to these projec
 Clone this repo locally with the following command:
 
 ```bash
-git clone https://github.com/yusa-n/base-saas.git
-cd base-saas
+git clone https://github.com/yusa-n/astrolabe.git
+cd astrolabe
 ```
 
 1. Install dependencies using bun:
@@ -122,7 +122,7 @@ cp apps/web/.env.example apps/web/.env
    - Create account at [cloudflare.com](https://cloudflare.com)
    - Install Wrangler CLI: `bun add -g wrangler`
    - Authenticate: `wrangler login`
-   - Create D1 database: `wrangler d1 create base-saas-db`
+   - Create D1 database: `wrangler d1 create astrolabe-db`
    - Update `wrangler.toml` with your database ID
 
    **Upstash (Rate Limiting):**
@@ -167,7 +167,7 @@ bun db:studio        # Open Drizzle Studio (database GUI)
 bun deploy           # Deploy to Cloudflare Workers
 
 # Production database
-wrangler d1 migrations apply base-saas-db --remote
+wrangler d1 migrations apply astrolabe-db --remote
 
 # Set production secrets
 wrangler secret put CLERK_PUBLISHABLE_KEY
@@ -227,7 +227,7 @@ bun clean        # Clean build artifacts
 
 The web and app can be deployed to Vercel:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyusa-n%2Fbase-saas)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyusa-n%2Fastrolabe)
 
 ### Deploy API to Cloudflare
 
@@ -240,7 +240,7 @@ wrangler secret put CLERK_PUBLISHABLE_KEY
 wrangler secret put CLERK_SECRET_KEY
 
 # Run production migrations
-wrangler d1 migrations apply base-saas-db --remote
+wrangler d1 migrations apply astrolabe-db --remote
 ```
 
 ## Learn More

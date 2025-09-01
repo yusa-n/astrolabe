@@ -1,6 +1,6 @@
 "use client";
 
-import { Icons } from "@base-saas/ui/icons";
+import { Icons } from "@astrolabe/ui/icons";
 import { useState } from "react";
 import { useCopyToClipboard } from "usehooks-ts";
 

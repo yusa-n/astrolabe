@@ -1,10 +1,10 @@
 {
-  "extends": "@base-saas/typescript/react-library.json",
+  "extends": "@astrolabe/typescript/react-library.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@base-saas/ui/*": ["../ui/src/*"]
+      "@astrolabe/ui/*": ["../ui/src/*"]
     }
   },
   "include": ["."],

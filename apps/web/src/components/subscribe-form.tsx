@@ -1,9 +1,9 @@
 "use client";
 
 import { subscribeAction } from "@/actions/subscribe-action";
-import { Button } from "@base-saas/ui/button";
-import { Icons } from "@base-saas/ui/icons";
-import { Input } from "@base-saas/ui/input";
+import { Button } from "@astrolabe/ui/button";
+import { Icons } from "@astrolabe/ui/icons";
+import { Input } from "@astrolabe/ui/input";
 import { useState } from "react";
 import { useFormStatus } from "react-dom";
 

@@ -5,7 +5,7 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@base-saas/ui/tooltip";
+} from "@astrolabe/ui/tooltip";
 
 export default function Page() {
   return (

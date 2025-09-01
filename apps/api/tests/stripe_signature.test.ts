@@ -1,4 +1,4 @@
-import { describe, it, expect } from "bun:test";
+import { describe, expect, it } from "bun:test";
 import { verifyStripeSignature } from "../src/lib/stripe";
 
 async function hmac(secret: string, data: string) {
@@ -20,7 +20,10 @@ async function hmac(secret: string, data: string) {
 describe("verifyStripeSignature", () => {
   it("valid signature passes", async () => {
     const secret = "whsec_test";
-    const payload = JSON.stringify({ id: "evt_1", type: "customer.subscription.updated" });
+    const payload = JSON.stringify({
+      id: "evt_1",
+      type: "customer.subscription.updated",
+    });
     const t = Math.floor(Date.now() / 1000);
     const expected = await hmac(secret, `${t}.${payload}`);
     const header = `t=${t},v1=${expected}`;
@@ -30,7 +33,10 @@ describe("verifyStripeSignature", () => {
 
   it("invalid signature fails", async () => {
     const secret = "whsec_test";
-    const payload = JSON.stringify({ id: "evt_1", type: "customer.subscription.updated" });
+    const payload = JSON.stringify({
+      id: "evt_1",
+      type: "customer.subscription.updated",
+    });
     const t = Math.floor(Date.now() / 1000);
     const header = `t=${t},v1=deadbeef`;
     const ok = await verifyStripeSignature(payload, header, secret);
@@ -39,7 +45,10 @@ describe("verifyStripeSignature", () => {
 
   it("timestamp outside tolerance fails", async () => {
     const secret = "whsec_test";
-    const payload = JSON.stringify({ id: "evt_1", type: "customer.subscription.updated" });
+    const payload = JSON.stringify({
+      id: "evt_1",
+      type: "customer.subscription.updated",
+    });
     const t = Math.floor(Date.now() / 1000) - 1000; // older than default 300s
     const expected = await hmac(secret, `${t}.${payload}`);
     const header = `t=${t},v1=${expected}`;
