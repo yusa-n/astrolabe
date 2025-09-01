@@ -252,12 +252,86 @@ app.post('/api/stripe/billing-portal/sessions', async (c) => {
   const appBase = c.env.APP_BASE_URL || c.req.header('origin') || new URL(c.req.url).origin;
   const returnUrl = `${appBase}/dashboard`;
   try {
+    // Reuse existing Billing Portal configuration if present, otherwise create one.
+    let configurationId: string | undefined;
+    try {
+      const configs = await stripeGet<{ data: Array<{ id: string }> }>(
+        c.env.STRIPE_SECRET_KEY,
+        'billing_portal/configurations',
+        { limit: '1' },
+      );
+      configurationId = configs.data?.[0]?.id;
+    } catch {}
+
+    if (!configurationId) {
+      // Build products/prices list for configuration (prefer team's product)
+      let productsForConfig: Array<{ product: string; prices: string[] }> = [];
+      if (team.stripeProductId) {
+        const prices = await stripeGet<{ data: Array<{ id: string }> }>(
+          c.env.STRIPE_SECRET_KEY,
+          'prices',
+          { product: team.stripeProductId, active: 'true', limit: '100' },
+        );
+        productsForConfig.push({ product: team.stripeProductId, prices: prices.data.map((p) => p.id) });
+      } else {
+        const prods = await stripeGet<{ data: Array<{ id: string }> }>(
+          c.env.STRIPE_SECRET_KEY,
+          'products',
+          { active: 'true', limit: '10' },
+        );
+        for (const p of prods.data) {
+          const prices = await stripeGet<{ data: Array<{ id: string }> }>(
+            c.env.STRIPE_SECRET_KEY,
+            'prices',
+            { product: p.id, active: 'true', limit: '100' },
+          );
+          if (prices.data.length > 0) {
+            productsForConfig.push({ product: p.id, prices: prices.data.map((x) => x.id) });
+          }
+        }
+      }
+
+      const body: Record<string, string | string[]> = {
+        'business_profile[headline]': 'Manage your subscription',
+        'features[subscription_update][enabled]': 'true',
+        'features[subscription_update][default_allowed_updates][]': 'price',
+        'features[subscription_update][default_allowed_updates][]': 'quantity',
+        'features[subscription_update][default_allowed_updates][]': 'promotion_code',
+        'features[subscription_update][proration_behavior]': 'create_prorations',
+        'features[subscription_cancel][enabled]': 'true',
+        'features[subscription_cancel][mode]': 'at_period_end',
+        'features[subscription_cancel][cancellation_reason][enabled]': 'true',
+        'features[subscription_cancel][cancellation_reason][options][]': 'too_expensive',
+        'features[subscription_cancel][cancellation_reason][options][]': 'missing_features',
+        'features[subscription_cancel][cancellation_reason][options][]': 'switched_service',
+        'features[subscription_cancel][cancellation_reason][options][]': 'unused',
+        'features[subscription_cancel][cancellation_reason][options][]': 'other',
+        'features[payment_method_update][enabled]': 'true',
+      };
+
+      // Attach allowed products/prices
+      productsForConfig.forEach((pp, idx) => {
+        body[`features[subscription_update][products][${idx}][product]`] = pp.product;
+        pp.prices.forEach((pr, j) => {
+          body[`features[subscription_update][products][${idx}][prices][${j}]`] = pr;
+        });
+      });
+
+      const conf = await stripePostForm<{ id: string }>(
+        c.env.STRIPE_SECRET_KEY,
+        'billing_portal/configurations',
+        body,
+      );
+      configurationId = conf.id;
+    }
+
     const session = await stripePostForm<{ url: string }>(
       c.env.STRIPE_SECRET_KEY,
       'billing_portal/sessions',
       {
         customer: team.stripeCustomerId,
         return_url: returnUrl,
+        ...(configurationId ? { configuration: configurationId } : {}),
       },
     );
     return c.json({ url: session.url });
