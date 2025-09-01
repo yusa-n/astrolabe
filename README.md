@@ -47,7 +47,7 @@ Everything you need to build a production-ready SaaS. An opinionated stack based
 [Resend](https://resend.com/) - Email delivery<br>
 [Sentry](https://sentry.io/) - Error monitoring<br>
 [OpenPanel](https://openpanel.dev/) - Privacy-friendly analytics<br>
-[Polar](https://polar.sh) - Billing (coming soon)<br>
+[Stripe](https://stripe.com) - Billing<br>
 
 ## Directory Structure
 

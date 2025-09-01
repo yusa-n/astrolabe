@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
-import { getDb } from "./index";
-import { teamMembers, teams, type Team } from "./schema";
+import { getDb } from "../index";
+import { teams, type Team } from "../schema";
 
 export async function getTeamByStripeCustomerId(d1: D1Database, customerId: string) {
   const db = getDb(d1);
@@ -32,13 +32,3 @@ export async function updateTeamSubscription(
     .where(eq(teams.id, teamId));
 }
 
-export async function getTeamForUserId(d1: D1Database, userId: string) {
-  const db = getDb(d1);
-  const result = await db
-    .select({ teamId: teamMembers.teamId, team: teams })
-    .from(teamMembers)
-    .leftJoin(teams, eq(teamMembers.teamId, teams.id))
-    .where(eq(teamMembers.userId, userId))
-    .limit(1);
-  return result.length > 0 ? result[0].team : null;
-}
