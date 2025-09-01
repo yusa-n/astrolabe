@@ -4,7 +4,7 @@
     "target": "ES2022",
     "module": "ESNext",
     "lib": ["ES2022"],
-    "types": ["@cloudflare/workers-types"],
+    "types": ["@cloudflare/workers-types", "bun-types"],
     "jsx": "react-jsx",
     "moduleResolution": "bundler",
     "allowJs": true,
@@ -13,6 +13,6 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "tests/**/*.ts", "tests/**/*.d.ts"],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,4 +1,13 @@
 # Clerk Authentication
-# Use the same keys as in apps/app/.env
 CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
+
+# Stripe (test mode)
+# For local dev, you can place test keys here.
+# In production, set these as Wrangler secrets.
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# App base URL used to build success/cancel URLs
+# Typically your Next.js app origin during local dev
+APP_BASE_URL=http://localhost:3000

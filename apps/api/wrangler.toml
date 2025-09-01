@@ -17,3 +17,7 @@ database_id = "YOUR_DATABASE_ID" # Replace with actual ID after creating the dat
 # Clerk environment variables should be set in Cloudflare dashboard or via wrangler secret
 # wrangler secret put CLERK_PUBLISHABLE_KEY
 # wrangler secret put CLERK_SECRET_KEY
+
+# Stripe environment variables (set as secrets)
+# wrangler secret put STRIPE_SECRET_KEY
+# wrangler secret put STRIPE_WEBHOOK_SECRET
