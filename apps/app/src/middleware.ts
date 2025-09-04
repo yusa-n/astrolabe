@@ -21,15 +21,25 @@ export default clerkMiddleware((auth, req) => {
     "/api/webhooks(.*)",
     "/sign-in(.*)",
     "/sign-up(.*)",
+    "/[locale]/sign-in(.*)",
+    "/[locale]/sign-up(.*)",
+    "/en/sign-in(.*)",
+    "/en/sign-up(.*)",
+    "/fr/sign-in(.*)",
+    "/fr/sign-up(.*)",
   ];
   const isPublicRoute = publicRoutes.some((route) => {
-    const regex = new RegExp(`^${route.replace(/\(.*\)/, ".*")}$`);
+    const regex = new RegExp(`^${route.replace(/\[locale\]/, "(en|fr)").replace(/\(.*\)/, ".*")}$`);
     return regex.test(req.nextUrl.pathname);
   });
 
   // Handle users who aren't authenticated on protected routes
   if (!auth().userId && !isPublicRoute) {
-    const signInUrl = new URL("/sign-in", req.url);
+    // Extract locale from pathname
+    const pathParts = req.nextUrl.pathname.split('/');
+    const locale = ['en', 'fr'].includes(pathParts[1]) ? pathParts[1] : 'en';
+    
+    const signInUrl = new URL(`/${locale}/sign-in`, req.url);
     signInUrl.searchParams.set("redirect_url", req.url);
     return NextResponse.redirect(signInUrl);
   }
